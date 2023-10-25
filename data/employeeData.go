@@ -10,7 +10,7 @@ type EmployeeIdentifierData struct {
 	EmployeeNo       string        `json:"employeeNo"`
 	Email            string        `json:"email"`
 	Superadmin       bool          `json:"superadmin"`
-	Division         idName        `json:"division"`
+	Division         *idName       `json:"division"`
 	User             user          `json:"user"`
 	CompanyOffice    companyOffice `json:"companyOffice"`
 	CompanyOfficeIds []int         `json:"companyOfficeIds"`
