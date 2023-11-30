@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/globalxtreme/go-identifier/data"
@@ -17,12 +18,15 @@ func MyGXIdentifier(next http.Handler) http.Handler {
 			errResponse.ErrXtremeUnauthenticated("IDENTIFIER not found")
 		}
 
+		myGX := data.MyGXIdentifierData{}
 		mygxData := decryption.Decrypt()
-		err := json.Unmarshal(mygxData, &data.MyGX)
+		err := json.Unmarshal(mygxData, &myGX)
 		if err != nil {
 			errResponse.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decode My GX data json: %s", err))
 		}
 
-		next.ServeHTTP(w, r)
+		ctx := context.WithValue(r.Context(), "IDENTIFIER", myGX)
+
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

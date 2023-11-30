@@ -1,9 +1,5 @@
 package data
 
-var (
-	Employee EmployeeIdentifierData
-)
-
 type EmployeeIdentifierData struct {
 	ID               string        `json:"id"`
 	FullName         string        `json:"fullName"`

@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/globalxtreme/go-identifier/data"
@@ -17,8 +18,9 @@ func EmployeeIdentifier(next http.Handler) http.Handler {
 			errResponse.ErrXtremeUnauthenticated("IDENTIFIER not found")
 		}
 
+		employee := data.EmployeeIdentifierData{}
 		employeeData := decryption.Decrypt()
-		err := json.Unmarshal(employeeData, &data.Employee)
+		err := json.Unmarshal(employeeData, &employee)
 		if err != nil {
 			errResponse.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decode employee data json: %s", err))
 		}
@@ -28,12 +30,16 @@ func EmployeeIdentifier(next http.Handler) http.Handler {
 			errResponse.ErrXtremeUnauthenticated("ACCESS not found")
 		}
 
+		access := data.AccessIdentifierData{}
 		accessData := decryption.Decrypt()
-		err = json.Unmarshal(accessData, &data.Access)
+		err = json.Unmarshal(accessData, &access)
 		if err != nil {
 			errResponse.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decode access data json: %s", err))
 		}
 
-		next.ServeHTTP(w, r)
+		ctx := context.WithValue(r.Context(), "IDENTIFIER", employee)
+		ctx = context.WithValue(ctx, "ACCESS", access)
+
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

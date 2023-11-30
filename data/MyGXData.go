@@ -1,9 +1,5 @@
 package data
 
-var (
-	MyGX MyGXIdentifierData
-)
-
 type MyGXIdentifierData struct {
 	ID               int                   `json:"id"`
 	UUID             string                `json:"uuid"`
