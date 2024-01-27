@@ -14,7 +14,7 @@ type EmployeeIdentifierData struct {
 }
 
 type idName struct {
-	ID   int    `json:"id"`
+	ID   uint   `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -24,7 +24,7 @@ type user struct {
 }
 
 type companyOffice struct {
-	ID       int    `json:"id"`
+	ID       uint   `json:"id"`
 	Name     string `json:"name"`
 	Address  string `json:"address"`
 	Company  idName `json:"company"`

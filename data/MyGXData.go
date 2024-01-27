@@ -8,6 +8,7 @@ type MyGXIdentifierData struct {
 	HolderName       string                `json:"holderName"`
 	Status           idName                `json:"status"`
 	Type             idName                `json:"type"`
+	Priority         idName                `json:"priority"`
 	User             mygxUser              `json:"user"`
 	ContactInfo      mygxContactInfo       `json:"contactInfo"`
 	ServiceLocations []mygxServiceLocation `json:"serviceLocations"`
@@ -20,7 +21,7 @@ type mygxUser struct {
 }
 
 type mygxCompanyOffice struct {
-	ID      int    `json:"id"`
+	ID      uint   `json:"id"`
 	Name    string `json:"name"`
 	Address string `json:"address"`
 }
@@ -37,7 +38,7 @@ type mygxContactInfo struct {
 }
 
 type mygxServiceLocation struct {
-	ID         int         `json:"id"`
+	ID         uint        `json:"id"`
 	UUID       string      `json:"uuid"`
 	Status     idName      `json:"status"`
 	Latitude   *string     `json:"latitude"`
@@ -49,7 +50,7 @@ type mygxServiceLocation struct {
 }
 
 type mygxPackage struct {
-	ID             int     `json:"id"`
+	ID             uint    `json:"id"`
 	UUID           string  `json:"uuid"`
 	Name           string  `json:"name"`
 	IdentifierName *string `json:"identifierName"`
