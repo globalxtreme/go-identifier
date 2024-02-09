@@ -83,3 +83,11 @@ func AuthPermissionTo(r *http.Request, name string) bool {
 		return false
 	}
 }
+
+func AuthAccessTo(accesses *map[string]interface{}, name string) bool {
+	if permission, ok := (*accesses)[name]; ok {
+		return permission.(bool)
+	} else {
+		return false
+	}
+}
