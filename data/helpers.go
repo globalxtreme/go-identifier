@@ -58,36 +58,64 @@ func AuthPermissions(r *http.Request) *map[string]interface{} {
 	return access.Permissions
 }
 
-func AuthRoleTo(r *http.Request, name string) bool {
+func AuthRoleTo(r *http.Request, names ...string) bool {
+	if len(names) == 0 {
+		return false
+	}
+
 	roles := AuthRoles(r)
 	if roles == nil {
 		return false
 	}
 
-	if role, ok := (*roles)[name]; ok {
-		return role.(bool)
-	} else {
-		return false
+	for _, name := range names {
+		if access, ok := (*roles)[name]; ok {
+			if !access.(bool) {
+				return false
+			}
+		}
 	}
+
+	return true
 }
 
-func AuthPermissionTo(r *http.Request, name string) bool {
+func AuthPermissionTo(r *http.Request, names ...string) bool {
+	if len(names) == 0 {
+		return false
+	}
+
 	permissions := AuthPermissions(r)
 	if permissions == nil {
 		return false
 	}
 
-	if permission, ok := (*permissions)[name]; ok {
-		return permission.(bool)
-	} else {
-		return false
+	for _, name := range names {
+		if access, ok := (*permissions)[name]; ok {
+			if !access.(bool) {
+				return false
+			}
+		}
 	}
+
+	return true
 }
 
-func AuthAccessTo(accesses *map[string]interface{}, name string) bool {
-	if access, ok := (*accesses)[name]; ok {
-		return access.(bool)
-	} else {
+func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
+	if accesses == nil {
 		return false
 	}
+
+	if len(names) == 0 {
+		return false
+	}
+
+	for _, name := range names {
+		if access, ok := (*accesses)[name]; ok {
+			if !access.(bool) {
+				return false
+			}
+		}
+	}
+
+	return true
 }
