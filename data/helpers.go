@@ -32,6 +32,17 @@ func AuthServiceLocations(r *http.Request) []mygxServiceLocation {
 	return customer.ServiceLocations
 }
 
+func AuthServiceLocationUUIDs(r *http.Request) []string {
+	serviceLocations := AuthServiceLocations(r)
+
+	uuids := make([]string, 0)
+	for _, serviceLocation := range serviceLocations {
+		uuids = append(uuids, serviceLocation.UUID)
+	}
+
+	return uuids
+}
+
 func AuthServiceLocation(r *http.Request, uuid string) *mygxServiceLocation {
 	serviceLocations := AuthServiceLocations(r)
 	for _, serviceLocation := range serviceLocations {
