@@ -15,7 +15,7 @@ type MyGXIdentifierData struct {
 }
 
 type mygxUser struct {
-	ID       string  `json:"id"`
+	ID       *int    `json:"id"`
 	Username string  `json:"username"`
 	Email    *string `json:"email"`
 }
