@@ -1,5 +1,5 @@
 module github.com/globalxtreme/go-identifier
 
-go 1.20
+go 1.22
 
-require github.com/globalxtreme/gobaseconf v1.2.1 // indirect
+require github.com/globalxtreme/gobaseconf v1.3.13
