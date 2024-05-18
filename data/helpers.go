@@ -130,3 +130,12 @@ func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
 
 	return true
 }
+
+func AuthPermission(r *http.Request) bool {
+	employee := AuthEmployee(r)
+	if employee.ID == "" {
+		return false
+	}
+
+	return employee.Superadmin
+}
