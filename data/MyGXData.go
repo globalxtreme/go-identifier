@@ -27,14 +27,17 @@ type mygxCompanyOffice struct {
 }
 
 type mygxContactInfo struct {
-	Email       *string `json:"email"`
-	HomePhone   *string `json:"homePhone"`
-	MobilePhone *string `json:"mobilePhone"`
-	Gender      *string `json:"gender"`
-	Nationality *string `json:"nationality"`
-	Address     *string `json:"address"`
-	City        *string `json:"city"`
-	Area        *string `json:"area"`
+	Email             *string `json:"email"`
+	HomePhone         *string `json:"homePhone"`
+	MobilePhone       *string `json:"mobilePhone"`
+	Gender            *string `json:"gender"`
+	Nationality       *string `json:"nationality"`
+	Address           *string `json:"address"`
+	City              *string `json:"city"`
+	Area              *string `json:"area"`
+	Phone             *string `json:"phone"`
+	AlternatePhoneOne *string `json:"alternatePhoneOne"`
+	AlternatePhoneTwo *string `json:"alternatePhoneTwo"`
 }
 
 type mygxServiceLocation struct {
