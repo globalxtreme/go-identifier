@@ -2,4 +2,4 @@ module github.com/globalxtreme/go-identifier
 
 go 1.22
 
-require github.com/globalxtreme/gobaseconf v1.3.13
+require github.com/globalxtreme/go-core/v2 v2.0.10

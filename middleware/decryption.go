@@ -7,7 +7,7 @@ import (
 	"crypto/cipher"
 	"encoding/base64"
 	"fmt"
-	errResponse "github.com/globalxtreme/gobaseconf/response/error"
+	xtremeres "github.com/globalxtreme/go-core/v2/response"
 	"io"
 	"strconv"
 	"strings"
@@ -20,7 +20,7 @@ type DecryptionIdentifier struct {
 func (decryption DecryptionIdentifier) Decrypt() []byte {
 	tokenDecode, err := base64.StdEncoding.DecodeString(decryption.Token)
 	if err != nil {
-		errResponse.ErrXtremeUnauthenticated("Unable to decode token!!")
+		xtremeres.ErrXtremeUnauthenticated("Unable to decode token!!")
 	}
 
 	iv := tokenDecode[0:16]
@@ -32,7 +32,7 @@ func (decryption DecryptionIdentifier) Decrypt() []byte {
 
 	block, err := aes.NewCipher(secret)
 	if err != nil {
-		errResponse.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decode token!! %s", err))
+		xtremeres.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decode token!! %s", err))
 	}
 
 	mode := cipher.NewCBCDecrypter(block, iv)
@@ -41,7 +41,7 @@ func (decryption DecryptionIdentifier) Decrypt() []byte {
 
 	identifierData, err = decompressZlib(identifierData)
 	if err != nil {
-		errResponse.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decompress data: %s", err))
+		xtremeres.ErrXtremeUnauthenticated(fmt.Sprintf("Unable to decompress data: %s", err))
 	}
 
 	return identifierData
