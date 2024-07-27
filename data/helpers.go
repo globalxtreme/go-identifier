@@ -69,7 +69,41 @@ func AuthPermissions(r *http.Request) *map[string]interface{} {
 	return access.Permissions
 }
 
+func AuthRoleName(r *http.Request) *string {
+	roles := AuthRoles(r)
+	if roles == nil {
+		return nil
+	}
+
+	for key, role := range *roles {
+		if role.(bool) {
+			return &key
+		}
+	}
+
+	return nil
+}
+
+func AuthPermissionName(r *http.Request) *string {
+	permissions := AuthPermissions(r)
+	if permissions == nil {
+		return nil
+	}
+
+	for key, permission := range *permissions {
+		if permission.(bool) {
+			return &key
+		}
+	}
+
+	return nil
+}
+
 func AuthRoleTo(r *http.Request, names ...string) bool {
+	if AuthSuperadmin(r) {
+		return true
+	}
+
 	if len(names) == 0 {
 		return false
 	}
@@ -91,6 +125,10 @@ func AuthRoleTo(r *http.Request, names ...string) bool {
 }
 
 func AuthPermissionTo(r *http.Request, names ...string) bool {
+	if AuthSuperadmin(r) {
+		return true
+	}
+
 	if len(names) == 0 {
 		return false
 	}
@@ -131,7 +169,7 @@ func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
 	return true
 }
 
-func AuthPermission(r *http.Request) bool {
+func AuthSuperadmin(r *http.Request) bool {
 	employee := AuthEmployee(r)
 	if employee.ID == "" {
 		return false
