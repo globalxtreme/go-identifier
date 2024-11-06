@@ -49,6 +49,7 @@ type mygxServiceLocation struct {
 	StreetName *string     `json:"streetName"`
 	LocationId string      `json:"locationId"`
 	Nickname   *string     `json:"nickname"`
+	StartDate  *string     `json:"startDate"`
 	Package    mygxPackage `json:"package"`
 }
 
