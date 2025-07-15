@@ -26,39 +26,6 @@ func AuthCustomer(r *http.Request) MyGXIdentifierData {
 	return r.Context().Value("IDENTIFIER").(MyGXIdentifierData)
 }
 
-func AuthServiceLocations(r *http.Request) []mygxServiceLocation {
-	customer := AuthCustomer(r)
-
-	return customer.ServiceLocations
-}
-
-func AuthServiceLocationUUIDs(r *http.Request) []string {
-	serviceLocations := AuthServiceLocations(r)
-
-	uuids := make([]string, 0)
-	for _, serviceLocation := range serviceLocations {
-		uuids = append(uuids, serviceLocation.UUID)
-	}
-
-	return uuids
-}
-
-func AuthServiceLocation(r *http.Request, uuid string) *mygxServiceLocation {
-	serviceLocations := AuthServiceLocations(r)
-	for _, serviceLocation := range serviceLocations {
-		if serviceLocation.UUID == uuid {
-			return &serviceLocation
-		}
-	}
-
-	return nil
-}
-
-func AuthCustomerCompanyOffice(r *http.Request) mygxCompanyOffice {
-	customer := AuthCustomer(r)
-	return customer.CompanyOffice
-}
-
 func AuthRoles(r *http.Request) *map[string]interface{} {
 	access := AuthAccess(r)
 	return access.Roles
