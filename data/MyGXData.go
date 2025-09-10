@@ -3,7 +3,8 @@ package data
 type MyGXIdentifierData struct {
 	ID           int              `json:"id"`
 	UUID         string           `json:"uuid"`
-	Number       string           `json:"string"`
+	Number       string           `json:"number"`
+	Branches     []mygxBranch     `json:"branches"`
 	FullName     string           `json:"fullName"`
 	Emails       []mygxEmail      `json:"emails"`
 	Phones       []mygxPhone      `json:"phones"`
@@ -13,6 +14,11 @@ type MyGXIdentifierData struct {
 	Address      string           `json:"address"`
 	Nationality  mygxNationality  `json:"nationality"`
 	User         mygxUser         `json:"user"`
+}
+
+type mygxBranch struct {
+	ID   int    `json:"id"`
+	Name string `json:"name"`
 }
 
 type mygxEmail struct {
@@ -45,4 +51,5 @@ type mygxUser struct {
 	ID       int     `json:"id"`
 	Username string  `json:"username"`
 	Email    *string `json:"email"`
+	Primary  *bool   `json:"primary"`
 }
