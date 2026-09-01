@@ -81,14 +81,15 @@ func AuthRoleTo(r *http.Request, names ...string) bool {
 	}
 
 	for _, name := range names {
-		if access, ok := (*roles)[name]; ok {
-			if !access.(bool) {
-				return false
-			}
+		access, ok := (*roles)[name]
+		if !ok {
+			return false
 		}
+
+		return access.(bool)
 	}
 
-	return true
+	return false
 }
 
 func AuthPermissionTo(r *http.Request, names ...string) bool {
@@ -106,14 +107,15 @@ func AuthPermissionTo(r *http.Request, names ...string) bool {
 	}
 
 	for _, name := range names {
-		if access, ok := (*permissions)[name]; ok {
-			if !access.(bool) {
-				return false
-			}
+		access, ok := (*permissions)[name]
+		if !ok {
+			return false
 		}
+
+		return access.(bool)
 	}
 
-	return true
+	return false
 }
 
 func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
@@ -126,14 +128,15 @@ func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
 	}
 
 	for _, name := range names {
-		if access, ok := (*accesses)[name]; ok {
-			if !access.(bool) {
-				return false
-			}
+		access, ok := (*accesses)[name]
+		if !ok {
+			return false
 		}
+
+		return access.(bool)
 	}
 
-	return true
+	return false
 }
 
 func AuthSuperadmin(r *http.Request) bool {
