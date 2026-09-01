@@ -86,10 +86,13 @@ func AuthRoleTo(r *http.Request, names ...string) bool {
 			return false
 		}
 
-		return access.(bool)
+		authorized, ok := access.(bool)
+		if !ok || !authorized {
+			return false
+		}
 	}
 
-	return false
+	return true
 }
 
 func AuthPermissionTo(r *http.Request, names ...string) bool {
@@ -112,10 +115,13 @@ func AuthPermissionTo(r *http.Request, names ...string) bool {
 			return false
 		}
 
-		return access.(bool)
+		authorized, ok := access.(bool)
+		if !ok || !authorized {
+			return false
+		}
 	}
 
-	return false
+	return true
 }
 
 func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
@@ -133,10 +139,13 @@ func AuthAccessTo(accesses *map[string]interface{}, names ...string) bool {
 			return false
 		}
 
-		return access.(bool)
+		authorized, ok := access.(bool)
+		if !ok || !authorized {
+			return false
+		}
 	}
 
-	return false
+	return true
 }
 
 func AuthSuperadmin(r *http.Request) bool {
